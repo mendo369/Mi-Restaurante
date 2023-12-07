@@ -21,6 +21,28 @@ def create_dish(name, description, price, available):
    db.close()
    return True
 
+def update_dish(dish_name, new_data):
+    dishes = get_dishes()
+
+    for i, diccionario in enumerate(dishes):
+        if diccionario["name"] == dish_name:
+            index = i
+            break
+
+    if index is None:
+        print(f"El diccionario con nombre '{dish_name}' no se encontró en la lista")
+        return False
+
+    dishes[index].update(new_data)
+
+    db = open("dishes.txt", "w")
+    for dish in dishes:
+        db.write(json.dumps(dish) + "\n")
+
+    db.close()
+
+    return dishes
+
 def delete_dish(dish_name):
     dishes = get_dishes()
     print(dishes)
@@ -45,8 +67,7 @@ def delete_dish(dish_name):
     return dishes
 
 if __name__=="__main__":
-#    create_dish("Flan3", "un flan de queso",8000, True)
-   dishes =get_dishes()
-#    print(dishes)
-   delete = delete_dish("Flan")
-#    print(delete)
+#    create_dish("Coctel", "Coctel de tres licores",15000, False)
+   print(get_dishes())
+   print(update_dish("Flan2", new_data={"name": "Flan", "available":False}))
+#    print(delete_dish("Coctel Peque\u00c3\u00b1o"))
