@@ -20,7 +20,18 @@ def register(email, password):
   print("user save")
 
 def login(email, password):
-  return
+  db = open("registro_inicio.txt", "r")
+  for line in db:
+    user = line.strip().split(', ')
+    if(user[0]==email):
+      if(compare_password(password, user[1])):
+        return user
+      else:
+        return "Credenciales invalidas"
+      # print(type(user[1]))
+    
+  db.close()
+  return False
 
 def email_validate(email):
   if "@" not in email:
@@ -69,5 +80,17 @@ def password_validate_and_hash(password):
 
   return hashlib.sha256(password.encode()).hexdigest()
 
+def compare_password(password, password_hashed):
+  try:
+    hashed = hashlib.sha256(password.encode()).hexdigest()
+
+    if(hashed == password_hashed):
+      return True
+    return False
+  except Exception as e:
+    return False
+
 if __name__ == "__main__":
-  register("luis@gmail.com", "Ld$123mend")
+  # register("luis@gmail.com", "Ld$123mend")
+  user = login("luis@gmail.com", "Ld$123mend")
+  print(user)

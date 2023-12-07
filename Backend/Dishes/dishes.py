@@ -48,5 +48,5 @@ if __name__=="__main__":
 #    create_dish("Flan3", "un flan de queso",8000, True)
    dishes =get_dishes()
 #    print(dishes)
-   delete = delete_dish("Flan3")
+   delete = delete_dish("Flan")
 #    print(delete)
