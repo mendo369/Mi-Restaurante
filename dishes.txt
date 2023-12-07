@@ -1,2 +1,1 @@
-{"name": "Flan", "description": "un flan de queso", "price": 8000, "availabnle": true}
 {"name": "Flan2", "description": "un flan de queso", "price": 8000, "availabnle": true}
