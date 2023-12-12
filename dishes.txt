@@ -1,4 +1,4 @@
-{"name": "Flan", "description": "un flan de queso", "price": 8000, "availabnle": true, "available": false}
-{"name": "Empanada", "description": "Empanada de carne o pollo", "price": 2000, "availabnle": true}
-{"name": "Tamal", "description": "Tamal de carne o pollo", "price": 12000, "availabnle": true}
-{"name": "Coctel Grande", "description": "Coctel de tres licores", "price": 15000, "availabnle": false}
+{"name": "Flan", "description": "un flan de queso", "price": 8000, "available": false}
+{"name": "Empanada", "description": "Empanada de carne o pollo", "price": 2000, "available": true}
+{"name": "Tamal", "description": "Tamal de carne o pollo", "price": 12000, "available": true}
+{"name": "Flan", "description": "Coctel de tres licores", "price": 15000, "available": true}

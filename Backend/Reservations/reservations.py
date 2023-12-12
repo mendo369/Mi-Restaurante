@@ -2,86 +2,109 @@ import json
 import datetime
 
 def get_reservations():
-    reservations = []
+    try:
 
-    db = open("reservations.txt", "r")
-    for line in db:
-        reservation = json.loads(line.strip())
-        reservations.append(reservation)
-    db.close()
+        reservations = []
 
-    return reservations
+        db = open("reservations.txt", "r")
+        for line in db:
+            reservation = json.loads(line.strip())
+            reservations.append(reservation)
+        db.close()
+
+        return reservations
+    
+    except Exception as e:
+
+        return []
 
 def create_reservation(reservation_date: str,
                 reservation_time: str,
                 number_of_guests: int,
                 assigned_table: int,):
-   reservation = {
-       "date" :reservation_date,
-       "time": reservation_time,
-       "guests": number_of_guests,
-       "table_number": assigned_table
-   }
+    try:
 
-   db = open("reservations.txt", "a")
-   db.write(f"{json.dumps(reservation)} \n")
-   db.close()
+        reservation = {
+            "date" :reservation_date,
+            "time": reservation_time,
+            "guests": number_of_guests,
+            "table_number": assigned_table
+        }
 
-   return True
+        db = open("reservations.txt", "a")
+        db.write(f"{json.dumps(reservation)} \n")
+        db.close()
+
+        return True
+    
+    except Exception as e:
+
+        return False
 
 def update_reservation(reservation,
                       new_data):
+    try:
+
+        reservations = get_reservations()
+        
+        index = None
+
+        # print(new_data)
+
+        for i, diccionario in enumerate(reservations):
+            if (diccionario["table_number"] == reservation["table_number"]) and  (diccionario["date"] == reservation["date"]) and (diccionario["time"] == reservation["time"]):
+                index = i
+                break
+
+        if index is None:
+            print("El diccionario con nombre ", reservation["table_number"],"no se encontró en la lista")
+            return False
+
+        reservations[index].update(new_data)
+
+        db = open("reservations.txt", "w")
+        for table in reservations:
+            db.write(json.dumps(table) + "\n")
+
+        db.close()
+
+        return True
     
-    reservations = get_reservations()
-    
-    index = None
+    except Exception as e:
 
-    # print(new_data)
-
-    for i, diccionario in enumerate(reservations):
-        if (diccionario["table_number"] == reservation["table_number"]) and  (diccionario["date"] == reservation["date"]) and (diccionario["time"] == reservation["time"]):
-            index = i
-            break
-
-    if index is None:
-        print("El diccionario con nombre ", reservation["table_number"],"no se encontró en la lista")
         return False
-
-    reservations[index].update(new_data)
-
-    db = open("reservations.txt", "w")
-    for table in reservations:
-        db.write(json.dumps(table) + "\n")
-
-    db.close()
-
-    return True
 
 def delete_reservation(reservation):
-    reservations = get_reservations()
-    index = None
+    try:
 
-    for i, diccionario in enumerate(reservations):
-        if (diccionario["table_number"] == reservation["table_number"]) and  (diccionario["date"] == reservation["date"]) and (diccionario["time"] == reservation["time"]):
-            index = i
-            print(index)
-            break
+        reservations = get_reservations()
+        index = None
 
-    if index is None:
-        print("El diccionario con nombre ", reservation["table_number"],"no se encontró en la lista")
-        return False
+        for i, diccionario in enumerate(reservations):
+            if (diccionario["table_number"] == reservation["table_number"]) and  (diccionario["date"] == reservation["date"]) and (diccionario["time"] == reservation["time"]):
+                index = i
+                print(index)
+                break
+
+        if index is None:
+            print("El diccionario con nombre ", reservation["table_number"],"no se encontró en la lista")
+            return False
+        
+        del reservations[index]
+
+        db = open("reservations.txt", "w")
+        for reservation in reservations:
+                db.write(json.dumps(reservation) + "\n")
+        db.close()
+
+        return True
     
-    del reservations[index]
+    except Exception as e:
 
-    db = open("reservations.txt", "w")
-    for reservation in reservations:
-            db.write(json.dumps(reservation) + "\n")
-    db.close()
-
-    return True
+        return False
 
 if __name__=="__main__":
-    # print(create_reservation("11/diciembre", "10 am", 4, 2))
-    # print(get_reservations())
-    # print(update_reservation(reservation={"table_number":1, "date": "1/enero", "time":"11 am"}, new_data={"time": "12 m"}))
-    print(delete_reservation(reservation={"table_number":1, "date": "1/enero", "time":"12 m"}))
+    print(get_reservations())
+    # print(create_reservation("16/diciembre", "10 am", 5, 4))
+    # print(update_reservation(reservation={"table_number":2, "date": "11/diciembre", "time":"10 am"}, new_data={"time": "12 m"}))
+    print(delete_reservation(reservation={"table_number":4, "date": "16/diciembre", "time":"10 am"}))

@@ -1,2 +1,4 @@
 {"date": "10/diciembre", "time": "10 am", "guests": 1, "table_number": 2}
 {"date": "11/diciembre", "time": "10 am", "guests": 4, "table_number": 2}
+{"date": "11/diciembre", "time": "10 am", "guests": 4, "table_number": 2}
+{"date": "16/diciembre", "time": "10 am", "guests": 5, "table_number": 4} 

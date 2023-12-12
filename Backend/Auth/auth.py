@@ -19,8 +19,10 @@ def register(email, password):
 
   print("user save")
 
-def login(email, password):
+def login(email,
+          password):
   db = open("registro_inicio.txt", "r")
+
   for line in db:
     user = line.strip().split(', ')
     if(user[0]==email):
@@ -31,6 +33,7 @@ def login(email, password):
       # print(type(user[1]))
     
   db.close()
+
   return False
 
 def email_validate(email):
@@ -46,8 +49,8 @@ def email_validate(email):
 
   if domain.endswith(".com") or domain.endswith(".co"):
     return True
+  
   else:
-    print("no .com .co")
 
     return False
 
@@ -80,17 +83,21 @@ def password_validate_and_hash(password):
 
   return hashlib.sha256(password.encode()).hexdigest()
 
-def compare_password(password, password_hashed):
+def compare_password(password,
+                     password_hashed):
   try:
+
     hashed = hashlib.sha256(password.encode()).hexdigest()
 
     if(hashed == password_hashed):
       return True
     return False
+  
   except Exception as e:
+
     return False
 
 if __name__ == "__main__":
-  # register("luis@gmail.com", "Ld$123mend")
-  user = login("luis@gmail.com", "Ld$123mend")
-  print(user)
+  print(register("luis2@gmail.com", "Ld$123mend"))
+  # user = login("luis@gmail.com", "Ld$123mend")
+  # print(user)

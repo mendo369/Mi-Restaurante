@@ -3,6 +3,7 @@ import get_id_time
 
 def get_orders():
     try:
+        
         orders = []
 
         db = open("orders.txt", "r")
@@ -14,12 +15,13 @@ def get_orders():
         return orders
 
     except Exception as e:
-        print(e)
+
         return []
     
 def create_order(dishes: [],
                 table_number: int):
     try:
+
         id = get_id_time.generate_id_from_time_and_date()
 
         order = {
@@ -32,7 +34,9 @@ def create_order(dishes: [],
                 db.write(f"{json.dumps(order)} \n")
 
         return True
+    
     except Exception as e:
+
         return False
 
 def update_order(order_id:str,
@@ -61,11 +65,14 @@ def update_order(order_id:str,
         db.close()
 
         return True
+    
     except Exception as e:
+
         return False
 
 def delete_order(order_id):
     try:
+
         orders = get_orders()
         index = None
 
@@ -85,11 +92,13 @@ def delete_order(order_id):
         db.close()
 
         return True
+    
     except Exception as e:
+
         return False
 
 if __name__ == "__main__":
-    # print(get_orders())
-    # print(create_order(dishes=["Flan", "Café"], table_number=4))
-    # print(update_order(order_id="202312915646", new_data={"table_number": 6}))
-    print(delete_order(order_id="202312915610"))
+    print(get_orders())
+    # print(create_order(dishes=["Perro", "Pepsi"], table_number=4))
+    # print(update_order(order_id="2023121217138", new_data={"table_number": 8}))
+    # print(delete_order(order_id="202312915646"))
