@@ -23,6 +23,8 @@ def create_reservation(reservation_date: str,
                 number_of_guests: int,
                 assigned_table: int,):
     try:
+        if(number_of_guests<0 or assigned_table<0):
+            return False
 
         reservation = {
             "date" :reservation_date,
@@ -44,12 +46,12 @@ def create_reservation(reservation_date: str,
 def update_reservation(reservation,
                       new_data):
     try:
+        if(reservation["table_number"]<0 or new_data["guests"]<0):
+            return False
 
         reservations = get_reservations()
         
         index = None
-
-        # print(new_data)
 
         for i, diccionario in enumerate(reservations):
             if (diccionario["table_number"] == reservation["table_number"]) and  (diccionario["date"] == reservation["date"]) and (diccionario["time"] == reservation["time"]):
@@ -83,11 +85,9 @@ def delete_reservation(reservation):
         for i, diccionario in enumerate(reservations):
             if (diccionario["table_number"] == reservation["table_number"]) and  (diccionario["date"] == reservation["date"]) and (diccionario["time"] == reservation["time"]):
                 index = i
-                print(index)
                 break
 
         if index is None:
-            print("El diccionario con nombre ", reservation["table_number"],"no se encontró en la lista")
             return False
         
         del reservations[index]
@@ -106,5 +106,5 @@ def delete_reservation(reservation):
 if __name__=="__main__":
     print(get_reservations())
     # print(create_reservation("16/diciembre", "10 am", 5, 4))
-    # print(update_reservation(reservation={"table_number":2, "date": "11/diciembre", "time":"10 am"}, new_data={"time": "12 m"}))
-    print(delete_reservation(reservation={"table_number":4, "date": "16/diciembre", "time":"10 am"}))
+    # print(update_reservation(reservation={"table_number":2, "date": "11/diciembre", "time":"10 am"}, new_data={"time": "12 m", "guests":5}))
+    # print(delete_reservation(reservation={"table_number":4, "date": "16/diciembre", "time":"10 am"}))

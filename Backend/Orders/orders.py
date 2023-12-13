@@ -21,6 +21,8 @@ def get_orders():
 def create_order(dishes: [],
                 table_number: int):
     try:
+        if(table_number<0):
+            return False
 
         id = get_id_time.generate_id_from_time_and_date()
 
@@ -42,6 +44,9 @@ def create_order(dishes: [],
 def update_order(order_id:str,
                 new_data):
     try:
+        if(new_data["table_number"]<0):
+            return False
+
         orders = get_orders()
         
         index = None
@@ -100,5 +105,5 @@ def delete_order(order_id):
 if __name__ == "__main__":
     print(get_orders())
     # print(create_order(dishes=["Perro", "Pepsi"], table_number=4))
-    # print(update_order(order_id="2023121217138", new_data={"table_number": 8}))
+    # print(update_order(order_id="2023121217138", new_data={"table_number": -8}))
     # print(delete_order(order_id="202312915646"))

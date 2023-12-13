@@ -17,6 +17,9 @@ def create_dish(name,
                 price,
                 available):
     try:
+        if(price<0):
+            return False
+
         dish = {
             "name": name,
             "description": description,
@@ -32,6 +35,9 @@ def create_dish(name,
 
 def update_dish(dish_name, new_data):
     try:
+        if(new_data["price"]<0):
+            return False
+
         dishes = get_dishes()
 
         for i, diccionario in enumerate(dishes):
